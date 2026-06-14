@@ -318,13 +318,12 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
     <script>
         // ============================================
-        // CONFIGURACIÓN DE GOOGLE SHEETS
+        // CONFIGURACIÓN DE GOOGLE SHEETS (YA CONFIGURADO)
         // ============================================
-        // ⚠️ ¡REEMPLAZA ESTA URL CON LA QUE COPIATE DE GOOGLE APPS SCRIPT!
+        // ✅ URL de Google Apps Script (ya configurada)
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzbhjOeIKxBhEeZKVlbAhOP0GKuES9U1Ti8ky7-xxvX-wxvkU5mLrF4A8nu8FdcNk_twQ/exec';
         
-        // ⚠️ REEMPLAZA CON EL ID DE TU GOOGLE SHEET
-        // El ID está en la URL de tu hoja: https://docs.google.com/spreadsheets/d/ID_DE_TU_HOJA/edit
+        // ✅ ID de Google Sheet (ya configurado)
         const GOOGLE_SHEET_ID = '1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk';
         
         // ============================================
@@ -348,7 +347,7 @@
             formData.append('genero', genero);
             
             try {
-                // Mostrar indicador de carga (opcional)
+                // Mostrar indicador de carga
                 const btn = document.querySelector('#formInscripcion button[type="submit"]');
                 const textoOriginal = btn.textContent;
                 btn.textContent = '⏳ Guardando...';
@@ -375,7 +374,7 @@
                 
             } catch (error) {
                 console.error('Error de conexión:', error);
-                alert('Error de conexión. Verifica tu internet y que la URL de Google Sheets sea correcta.');
+                alert('Error de conexión. Verifica tu internet.');
                 return false;
             }
         }
@@ -384,25 +383,20 @@
          * Abre Google Sheets en una nueva pestaña
          */
         function verGoogleSheet() {
-            if (GOOGLE_SHEET_ID === '1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk') {
-                alert('⚠️ Primero debes configurar el ID de tu Google Sheet en el código.\n\nInstrucciones:\n1. Abre tu hoja de cálculo de Google\n2. Copia el ID de la URL\n3. Pégarlo donde dice TU_SHEET_ID');
-                return;
-            }
-            const sheetUrl = `https://docs.google.com/spreadsheets/d/1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk/edit`;
+            const sheetUrl = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/edit`;
             window.open(sheetUrl, '_blank');
         }
         
         /**
-         * Instrucciones para vaciar los datos (por seguridad no se borra automáticamente)
+         * Instrucciones para vaciar los datos
          */
         async function vaciarTodos() {
             if (!confirm('⚠️ ¿Estás seguro de que quieres eliminar TODOS los inscritos?\n\nEsta acción NO se puede deshacer.')) {
                 return;
             }
             
-            alert('📌 Para vaciar todos los inscritos:\n\n1. Abre tu Google Sheet\n2. Selecciona todas las filas debajo de los encabezados\n3. Haz clic derecho → Eliminar filas\n4. Guarda los cambios\n\nEsto es por seguridad, para evitar borrados accidentales.');
+            alert('📌 Para vaciar todos los inscritos:\n\n1. Haz clic en Aceptar y se abrirá tu Google Sheet\n2. Selecciona todas las filas debajo de los encabezados\n3. Haz clic derecho → Eliminar filas\n4. Guarda los cambios');
             
-            // Opcional: abrir el Google Sheet automáticamente
             verGoogleSheet();
         }
 
@@ -508,15 +502,7 @@
             }
         });
         
-        // Verificar configuración al cargar la página
-        window.addEventListener('load', function() {
-            if (GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/AKfycbzbhjOeIKxBhEeZKVlbAhOP0GKuES9U1Ti8ky7-xxvX-wxvkU5mLrF4A8nu8FdcNk_twQ/exec') {
-                console.warn('⚠️ Configuración pendiente: Debes reemplazar TU_URL_AQUI con la URL de Google Apps Script');
-            }
-            if (GOOGLE_SHEET_ID === '1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk') {
-                console.warn('⚠️ Configuración pendiente: Debes reemplazar TU_SHEET_ID con el ID de tu Google Sheet');
-            }
-        });
+        console.log('✅ Configuración completada. Google Sheets ID y URL configurados correctamente.');
     </script>
 </body>
 </html>

@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inscripción Carrera - Google Sheets</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,8 +18,10 @@
             padding: 20px;
         }
 
-        
-        .container { max-width: 800px; margin: 0 auto; }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
 
         .card {
             background: white;
@@ -23,13 +29,35 @@
             padding: 30px;
             margin-bottom: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
         }
 
-        h1 { color: #333; margin-bottom: 10px; text-align: center; }
-        .subtitulo { text-align: center; color: #666; margin-bottom: 30px; }
+        .card:hover {
+            transform: translateY(-5px);
+        }
 
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; color: #333; font-weight: 600; }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitulo {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
 
         input, select {
             width: 100%;
@@ -37,9 +65,13 @@
             border: 2px solid #ddd;
             border-radius: 8px;
             font-size: 16px;
+            transition: border-color 0.3s;
         }
 
-        input:focus, select:focus { outline: none; border-color: #667eea; }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
 
         button {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -49,16 +81,27 @@
             border-radius: 8px;
             font-size: 16px;
             cursor: pointer;
-            transition: transform 0.2s;
+            transition: all 0.3s;
             margin-right: 10px;
             margin-top: 10px;
         }
 
-        button:hover { transform: translateY(-2px); }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
 
-        .btn-organizador { background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%); }
-        .btn-excel { background: linear-gradient(135deg, #28a745 0%, #20c997 100%); }
-        .btn-cerrar { background: linear-gradient(135deg, #6c757d 0%, #495057 100%); }
+        .btn-organizador {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+        }
+
+        .btn-excel {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+        }
+
+        .btn-cerrar {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+        }
 
         table {
             width: 100%;
@@ -66,15 +109,42 @@
             margin-top: 20px;
         }
 
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-        th { background: #667eea; color: white; }
-        tr:hover { background: #f5f5f5; }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
 
-        .contador { background: #f0f0f0; padding: 10px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: bold; }
+        th {
+            background: #667eea;
+            color: white;
+        }
 
-        .panel-organizador { display: none; }
-        .panel-organizador.activo { display: block; }
-        .oculto { display: none; }
+        tr:hover {
+            background: #f5f5f5;
+        }
+
+        .contador {
+            background: #f0f0f0;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .panel-organizador {
+            display: none;
+        }
+
+        .panel-organizador.activo {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        .oculto {
+            display: none;
+        }
 
         .login-overlay {
             position: fixed;
@@ -87,6 +157,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            animation: fadeIn 0.3s;
         }
 
         .login-box {
@@ -98,8 +169,25 @@
             text-align: center;
         }
 
-        .login-box input { margin: 15px 0; }
-        .aviso { color: red; margin-top: 10px; display: none; }
+        .login-box h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .login-box p {
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .login-box input {
+            margin: 15px 0;
+        }
+
+        .aviso {
+            color: red;
+            margin-top: 10px;
+            display: none;
+        }
 
         .sesion-activa {
             background: #28a745;
@@ -111,32 +199,73 @@
             margin-bottom: 15px;
         }
 
-        .cargando { text-align: center; padding: 20px; color: #666; }
+        .cargando {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .info-box p {
+            color: #1976d2;
+            margin: 5px 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+            }
+            
+            button {
+                width: 100%;
+                margin-right: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Tarjeta del formulario de inscripción -->
         <div class="card">
             <h1>🏃 Inscripción a la Carrera</h1>
             <div class="subtitulo">Completa el formulario para participar</div>
 
+            <!-- Indicador de sesión organizador activa -->
             <div id="indicadorSesion" style="text-align: center; display: none;">
                 <span class="sesion-activa">👑 Modo Organizador activo</span>
             </div>
 
             <form id="formInscripcion">
                 <div class="form-group">
-                    <label>Nombre completo:</label>
-                    <input type="text" id="nombre" required placeholder="Ej: Juan Pérez">
+                    <label>📝 Nombre completo:</label>
+                    <input type="text" id="nombre" required placeholder="Ej: Juan Pérez" autocomplete="off">
                 </div>
 
                 <div class="form-group">
-                    <label>Edad:</label>
+                    <label>🎂 Edad:</label>
                     <input type="number" id="edad" required placeholder="Ej: 25" min="1" max="120">
                 </div>
 
                 <div class="form-group">
-                    <label>Género:</label>
+                    <label>⚧ Género:</label>
                     <select id="genero" required>
                         <option value="">Seleccione...</option>
                         <option value="Masculino">Masculino</option>
@@ -151,30 +280,35 @@
             </form>
         </div>
 
+        <!-- Panel de organizador (oculto por defecto) -->
         <div id="panelOrganizador" class="panel-organizador">
             <div class="card">
                 <h2>📋 Panel de Organizador</h2>
-                <div class="contador" id="contador">📊 Todos los datos se guardan en Google Sheets</div>
+                <div class="contador" id="contador">
+                    💾 Los datos se guardan automáticamente en Google Sheets
+                </div>
                 
-                <button type="button" class="btn-excel" id="btnExcel">📊 Ver Google Sheet</button>
+                <button type="button" class="btn-excel" id="btnExcel">📊 Ver / Descargar Google Sheet</button>
                 <button type="button" id="btnVaciarTodo" class="btn-organizador">⚠️ Vaciar todos los inscritos</button>
                 <button type="button" id="btnCerrarSesion" class="btn-cerrar">🚪 Cerrar sesión</button>
                 
-                <div class="tabla-inscritos">
-                    <div class="cargando" id="cargandoTabla">
-                        ℹ️ Los inscritos se guardan automáticamente en tu Google Sheet.<br>
-                        Haz clic en "Ver Google Sheet" para ver todos los datos.
-                    </div>
+                <div class="info-box">
+                    <p>📌 <strong>¿Cómo funciona?</strong></p>
+                    <p>✓ Los inscritos se guardan automáticamente en tu Google Sheet</p>
+                    <p>✓ Haz clic en "Ver Google Sheet" para ver todos los datos en tiempo real</p>
+                    <p>✓ Desde Google Sheets puedes descargar el archivo como Excel</p>
+                    <p>✓ Los datos están en la nube, accesibles desde cualquier dispositivo</p>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Modal de login (aparece al hacer clic en "Acceso Organizadores") -->
     <div id="loginModal" class="login-overlay" style="display: none;">
         <div class="login-box">
             <h2>🔐 Acceso Organizadores</h2>
             <p>Ingresa la contraseña para acceder al panel</p>
-            <input type="password" id="passwordOrganizador" placeholder="Contraseña">
+            <input type="password" id="passwordOrganizador" placeholder="Contraseña" autocomplete="off">
             <button id="btnLogin">Ingresar</button>
             <button id="btnCancelarLogin">Cancelar</button>
             <div id="errorLogin" class="aviso">❌ Contraseña incorrecta</div>
@@ -183,20 +317,30 @@
 
     <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
     <script>
-        // ========== CONFIGURACIÓN DE GOOGLE SHEETS ==========
+        // ============================================
+        // CONFIGURACIÓN DE GOOGLE SHEETS
+        // ============================================
         // ⚠️ ¡REEMPLAZA ESTA URL CON LA QUE COPIATE DE GOOGLE APPS SCRIPT!
         const GOOGLE_SHEETS_URL = 'https://script.google.com/macros/s/AKfycbzbhjOeIKxBhEeZKVlbAhOP0GKuES9U1Ti8ky7-xxvX-wxvkU5mLrF4A8nu8FdcNk_twQ/exec';
         
-        // También necesitas el ID de tu Google Sheet para abrirlo directamente
+        // ⚠️ REEMPLAZA CON EL ID DE TU GOOGLE SHEET
         // El ID está en la URL de tu hoja: https://docs.google.com/spreadsheets/d/ID_DE_TU_HOJA/edit
-        const GOOGLE_SHEET_ID = '1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk'; // Reemplaza con el ID de tu hoja
+        const GOOGLE_SHEET_ID = '1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk';
         
-        // ========== CONFIGURACIÓN GENERAL ==========
-        const CONTRASENA_ORGANIZADOR = "carrera2024";
+        // ============================================
+        // CONFIGURACIÓN GENERAL
+        // ============================================
+        const CONTRASENA_ORGANIZADOR = "carrera2024"; // Cambia esta contraseña si quieres
+        
         let modoOrganizador = false;
-        let inscritos = [];
 
-        // ========== FUNCIONES PRINCIPALES ==========
+        // ============================================
+        // FUNCIONES PARA GUARDAR EN GOOGLE SHEETS
+        // ============================================
+        
+        /**
+         * Envía los datos del inscrito a Google Sheets
+         */
         async function agregarInscrito(nombre, edad, genero) {
             const formData = new FormData();
             formData.append('nombre', nombre.trim());
@@ -204,6 +348,12 @@
             formData.append('genero', genero);
             
             try {
+                // Mostrar indicador de carga (opcional)
+                const btn = document.querySelector('#formInscripcion button[type="submit"]');
+                const textoOriginal = btn.textContent;
+                btn.textContent = '⏳ Guardando...';
+                btn.disabled = true;
+                
                 const response = await fetch(GOOGLE_SHEETS_URL, {
                     method: 'POST',
                     body: formData
@@ -211,35 +361,55 @@
                 
                 const result = await response.json();
                 
+                // Restaurar botón
+                btn.textContent = textoOriginal;
+                btn.disabled = false;
+                
                 if (result.result === 'success') {
                     return true;
                 } else {
-                    console.error('Error:', result);
+                    console.error('Error del servidor:', result);
                     alert('Error al guardar. Por favor, intenta de nuevo.');
                     return false;
                 }
                 
             } catch (error) {
                 console.error('Error de conexión:', error);
-                alert('Error de conexión. Verifica tu internet.');
+                alert('Error de conexión. Verifica tu internet y que la URL de Google Sheets sea correcta.');
                 return false;
             }
         }
         
-        async function vaciarTodos() {
-            if (!confirm('⚠️ ¿Estás seguro de que quieres eliminar TODOS los inscritos? Esta acción NO se puede deshacer.')) {
+        /**
+         * Abre Google Sheets en una nueva pestaña
+         */
+        function verGoogleSheet() {
+            if (GOOGLE_SHEET_ID === '1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk') {
+                alert('⚠️ Primero debes configurar el ID de tu Google Sheet en el código.\n\nInstrucciones:\n1. Abre tu hoja de cálculo de Google\n2. Copia el ID de la URL\n3. Pégarlo donde dice TU_SHEET_ID');
                 return;
             }
-            
-            alert('Para vaciar todos los inscritos, ve a tu Google Sheet y elimina las filas manualmente.\n\nEsto es por seguridad, para evitar borrados accidentales.');
-        }
-        
-        function verGoogleSheet() {
-            const sheetUrl = `https://docs.google.com/spreadsheets/d/${GOOGLE_SHEET_ID}/edit`;
+            const sheetUrl = `https://docs.google.com/spreadsheets/d/1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk/edit`;
             window.open(sheetUrl, '_blank');
         }
         
-        // ========== MODOS ==========
+        /**
+         * Instrucciones para vaciar los datos (por seguridad no se borra automáticamente)
+         */
+        async function vaciarTodos() {
+            if (!confirm('⚠️ ¿Estás seguro de que quieres eliminar TODOS los inscritos?\n\nEsta acción NO se puede deshacer.')) {
+                return;
+            }
+            
+            alert('📌 Para vaciar todos los inscritos:\n\n1. Abre tu Google Sheet\n2. Selecciona todas las filas debajo de los encabezados\n3. Haz clic derecho → Eliminar filas\n4. Guarda los cambios\n\nEsto es por seguridad, para evitar borrados accidentales.');
+            
+            // Opcional: abrir el Google Sheet automáticamente
+            verGoogleSheet();
+        }
+
+        // ============================================
+        // FUNCIONES DE MODOS (Participante/Organizador)
+        // ============================================
+        
         function mostrarPanelOrganizador() {
             modoOrganizador = true;
             document.getElementById('btnModoOrganizador').classList.add('oculto');
@@ -279,8 +449,12 @@
             document.getElementById('indicadorSesion').style.display = 'none';
             alert('Has cerrado sesión como organizador');
         }
+
+        // ============================================
+        // EVENTOS Y CONFIGURACIÓN INICIAL
+        // ============================================
         
-        // ========== EVENTOS ==========
+        // Evento del formulario de inscripción
         document.getElementById('formInscripcion').addEventListener('submit', async function(e) {
             e.preventDefault();
             
@@ -288,17 +462,30 @@
             const edad = document.getElementById('edad').value;
             const genero = document.getElementById('genero').value;
             
-            if (!nombre) { alert('Por favor, ingresa el nombre'); return; }
-            if (!edad || edad < 1 || edad > 120) { alert('Edad válida (1-120)'); return; }
-            if (!genero) { alert('Selecciona un género'); return; }
+            // Validaciones
+            if (!nombre) {
+                alert('❌ Por favor, ingresa el nombre');
+                return;
+            }
+            if (!edad || edad < 1 || edad > 120) {
+                alert('❌ Por favor, ingresa una edad válida (1-120)');
+                return;
+            }
+            if (!genero) {
+                alert('❌ Por favor, selecciona un género');
+                return;
+            }
             
+            // Guardar en Google Sheets
             const exito = await agregarInscrito(nombre, edad, genero);
+            
             if (exito) {
                 document.getElementById('formInscripcion').reset();
-                alert(`¡${nombre} se ha inscrito correctamente!`);
+                alert(`✅ ¡${nombre} se ha inscrito correctamente!\n\nLos datos han sido guardados en Google Sheets.`);
             }
         });
         
+        // Eventos de los botones
         document.getElementById('btnModoOrganizador').addEventListener('click', mostrarLogin);
         document.getElementById('btnLogin').addEventListener('click', intentarLogin);
         document.getElementById('btnCancelarLogin').addEventListener('click', cerrarLogin);
@@ -306,8 +493,29 @@
         document.getElementById('btnExcel').addEventListener('click', verGoogleSheet);
         document.getElementById('btnVaciarTodo').addEventListener('click', vaciarTodos);
         
+        // Cerrar modal si hacen clic fuera de él
         document.getElementById('loginModal').addEventListener('click', function(e) {
-            if (e.target === this) cerrarLogin();
+            if (e.target === this) {
+                cerrarLogin();
+            }
+        });
+        
+        // Permitir enviar formulario con Enter
+        document.getElementById('formInscripcion').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                document.querySelector('#formInscripcion button[type="submit"]').click();
+            }
+        });
+        
+        // Verificar configuración al cargar la página
+        window.addEventListener('load', function() {
+            if (GOOGLE_SHEETS_URL === 'https://script.google.com/macros/s/AKfycbzbhjOeIKxBhEeZKVlbAhOP0GKuES9U1Ti8ky7-xxvX-wxvkU5mLrF4A8nu8FdcNk_twQ/exec') {
+                console.warn('⚠️ Configuración pendiente: Debes reemplazar TU_URL_AQUI con la URL de Google Apps Script');
+            }
+            if (GOOGLE_SHEET_ID === '1ZDN_H9VmvKFq9i3VIjzV0pjSa97_EHw4JjVgrJ_fDwk') {
+                console.warn('⚠️ Configuración pendiente: Debes reemplazar TU_SHEET_ID con el ID de tu Google Sheet');
+            }
         });
     </script>
 </body>
